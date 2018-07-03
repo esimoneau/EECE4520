@@ -1,2 +1,2 @@
 # EECE4520
-Final project for data visualization for Software Engineering 1
+Idea: A data visualization model that tracks trends of social movements through social media data. The data will ideal be grabbed from APIs from platformes such as Facebook, Twitter, Intagram, etc. Ideally, Python will be used exclusively.
