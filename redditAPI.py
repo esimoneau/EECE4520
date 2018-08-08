@@ -59,5 +59,5 @@ addParams(search)
 getSubmissions(search.keyword, search.startDate, search.endDate)
 getTodaySubmissions(search.keyword)
 
-with open('subData.txt', 'w') as outfile:
+with open('redditData.txt', 'w') as outfile:
     json.dump(subData, outfile)
