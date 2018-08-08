@@ -9,10 +9,6 @@ subData['submissions'] = []
 subData['todaySubs'] = []
 
 class SearchParam(object):
-    startDate = date(2018, 1, 1)
-    endDate = date(2018, 1, 1)
-    keyword = ''
-    
     def __init__(self):
         self.startDate = date(2018, 1, 1)
         self.endDate = date(2018, 1, 1)
