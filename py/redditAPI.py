@@ -15,7 +15,7 @@ class SearchParam(object):
         self.keyword = ''
 
 def addParams(search):
-    with open('..\json\search.json') as jsonFile:
+    with open('../json/search.json') as jsonFile:
         data = json.load(jsonFile)
         for i in data['searchParams']:
             search.startDate = search.startDate.replace(year=i['startYear'], month=i['startMonth'], day=i['startDay'])
@@ -48,5 +48,5 @@ addParams(search)
 getSubmissions(search.keyword, search.startDate, search.endDate)
 getTodaySubmissions(search.keyword)
 
-with open('..\json\redditData.json', 'w') as outfile:
+with open('../json/redditData.json', 'w') as outfile:
     json.dump(subData, outfile)
