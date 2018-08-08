@@ -1,0 +1,1 @@
+{"searchParams": [{"startYear": 2018, "startMonth": 1, "startDay": 1, "endYear": 2018, "endMonth": 8, "endDay": 7, "keyword": "Trump"}]}
