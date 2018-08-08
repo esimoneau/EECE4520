@@ -46,7 +46,6 @@ search = SearchParam()
 addParams(search)
 
 getSubmissions(search.keyword, search.startDate, search.endDate)
-getTodaySubmissions(search.keyword)
 
 with open('../json/redditData.json', 'w') as outfile:
     json.dump(subData, outfile)
