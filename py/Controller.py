@@ -1,5 +1,5 @@
 from NewsAPI import NewsAPI
-from RedditAPI import RedditAPI
+from redditAPI import RedditAPI
 from TwitterAPI import TwitterAPI
 import json
 from datetime import date, datetime

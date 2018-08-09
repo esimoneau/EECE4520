@@ -19,4 +19,4 @@ class NewsAPI(APICall):
 	def parse_results(self):
 		if self.results != {}:
 			with open('../json/newsData.json', 'w') as outfile:
-				json.dump(self.results, outfile)
+				json.dump(self.results, outfile, indent=4)
