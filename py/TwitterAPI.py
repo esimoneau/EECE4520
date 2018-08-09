@@ -1,4 +1,4 @@
-'''
+''
 	Contributors: Emily Simoneau and Cameron Bates
 '''
 from APICall import APICall
@@ -18,7 +18,7 @@ class TwitterAPI(APICall):
 		python_tweets = Twython(self.creds['CONSUMER_KEY'], self.creds['CONSUMER_SECRET'])
 		##date_start_str = self.date_to_string(date_start)
 		##date_end_str = self.date_to_string(date_end)
-		for status in python_tweets.search(q=keyword, until=date_end, since=date_start)['statuses']:
+		for status in python_tweets.search(q=keyword, until=date_end, since=date_start, result_type='popular', count=100)['statuses']:
 			self.results['user'].append(status['user']['screen_name'])
 			self.results['date'].append(status['created_at'])
 			self.results['text'].append(status['text'])
