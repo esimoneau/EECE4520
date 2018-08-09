@@ -48,7 +48,7 @@ class RedditAPI(APICall):
 
 	def parse_results(self):
 		with open('../json/redditData.json', 'w') as outfile:
-			json.dump(self.subData, outfile)
+			json.dump(self.subData, outfile, indent=4)
 
 '''
 search = SearchParam()
