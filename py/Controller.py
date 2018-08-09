@@ -1,10 +1,11 @@
 from NewsAPI import NewsAPI
 from RedditAPI import RedditAPI
+from TwitterAPI import TwitterAPI
 import json
 from datetime import date, datetime
 
 '''
-	Chris Wrote This, Cam added platform
+	Contributors: Chris Lau and Cameron Bates
 '''
 class SearchParam(object):
 	def __init__(self):
@@ -32,6 +33,11 @@ def runSearch():
 	
 	##Social Media API
 	##if search_param.platform = 'Twitter' run twitter search
+	twitter_api = TwitterAPI()
+	twitter_api.search(search_param.keyword, search_param.startDate, search_param.endDate)
+	twitter_api.parse_results()
+	
+	
 	##elif search_param.platform = 'Reddit' run reddit search
 	reddit_api = RedditAPI()
 	reddit_api.search(search_param.keyword, search_param.startDate, search_param.endDate)

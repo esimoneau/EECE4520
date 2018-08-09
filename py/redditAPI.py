@@ -1,3 +1,7 @@
+'''
+	Contributors: Chris Lau and Cameron Bates
+'''
+
 from datetime import date, datetime
 import praw
 import json

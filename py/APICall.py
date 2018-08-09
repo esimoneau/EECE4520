@@ -1,5 +1,6 @@
 '''
-This class handles all API Calls.
+	This class handles all API Calls.
+	Contributor: Cameron Bates
 '''
 
 class APICall:
