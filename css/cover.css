@@ -26,21 +26,30 @@ a:hover {
 
 html,
 body {
+  color: #fff;
   height: 100%;
+  width: 100%;
   background-color: #000;
 }
-
+/*
 body {
-  display: -ms-flexbox;
+/*  display: -ms-flexbox;
   display: flex;
-  color: #fff;
   text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
   box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
 }
-
+*/
 .cover-container {
   max-width: 42em;
 }
+.container {
+/*  height: 1000px;  */
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  position:relative;
+}
+
 
 .center {
     display: block;
@@ -60,34 +69,63 @@ body {
   margin-bottom: 0;
 }
 
-.nav-masthead .nav-link {
-  padding: .25rem 0;
-  font-weight: 700;
-  color: rgba(255, 255, 255, .5);
-  background-color: transparent;
-  border-bottom: .25rem solid transparent;
+
+/* CSS used here will be applied after bootstrap.css */
+.navbar-fixed-left {
+  width: 200px;
+  position: fixed;
+  border-radius: 0;
+  height: 100%;
+}
+.navbar {
+    background-color: #000;
 }
 
-.nav-masthead .nav-link:hover,
-.nav-masthead .nav-link:focus {
-  border-bottom-color: rgba(255, 255, 255, .25);
+.navbar-added {
+  text-align: center;
 }
 
-.nav-masthead .nav-link + .nav-link {
-  margin-left: 1rem;
+.navbar-fixed-left .navbar-nav > li {
+  float: none;  /* Cancel default li float: left */
+  width: 180px;
+  background-color: #000;
 }
 
-.nav-masthead .active {
-  color: #fff;
-  border-bottom-color: #fff;
+.navbar-fixed-left + .container {
+  padding-left: 150px;
 }
 
-@media (min-width: 48em) {
-  .masthead-brand {
-    float: left;
+/*
+ * Affix and center
+ */
+
+@media (min-width: 768px) {
+  /* Pull out the header and footer */
+  .masthead {
+    position: fixed;
+    top: 0;
   }
-  .nav-masthead {
-    float: right;
+  .mastfoot {
+    position: fixed;
+    bottom: 0;
+  }
+  /* Start the vertical centering */
+  .site-wrapper-inner {
+    vertical-align: middle;
+  }
+  /* Handle the widths */
+  .masthead,
+  .mastfoot,
+  .cover-container {
+    width: 100%; /* Must be percentage or pixels for horizontal alignment */
+  }
+}
+
+@media (min-width: 992px) {
+  .masthead,
+  .mastfoot,
+  .cover-container {
+    width: 700px;
   }
 }
 
@@ -95,9 +133,9 @@ body {
 /*
  * Cover
  */
-.cover {
+/*.cover {
   padding: 0 1.5rem;
-}
+} */
 .cover .btn-lg {
   padding: .75rem 1.25rem;
   font-weight: 700;
