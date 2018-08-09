@@ -74,21 +74,23 @@
        <table id="reddit-table">
       </table>
 
-       <script>
-           $(document).ready(function () {
-             $.getJSON("json/newdata.json",function(data){
-               var reddit_data = '';
-               for( var i = 0; i < data.articles.length; i++) {
-                 reddit_data += "<tr>";
-                 reddit data += "<img src= \"" + data.articles.urlToImage + "\" class = \"img-thumbnail\" >" ;
-                 reddit_data += "<td>"+ data.submissions[i].title +"</td>";
-                 reddit_data += "<td>" + data.submissions[i].score +"</td>";
-                 reddit_data += "</tr>";
-               }
-               $('#reddit-table').append(reddit_data);
-             });
-           });
-       </script>
+      <script>
+          $(document).ready(function () {
+            $.getJSON("json/newdata.json",function(data){
+              var reddit_data = '';
+              for( var i = 0; i < data.articles.length; i++) {
+                reddit_data += "<tr>";
+                reddit data += "<img src= \"" + data.articles.urlToImage + "\" class = \"img-thumbnail\" >" ;
+                reddit_data += "<td>"+ data.submissions[i].title +"</td>";
+                reddit_data += "<td>" + data.submissions[i].score +"</td>";
+                reddit_data += "</tr>";
+              }
+              $('#reddit-table').append(reddit_data);
+            });
+          });
+      </script>
+
+
 
      </div>
 
