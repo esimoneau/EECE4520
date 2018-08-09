@@ -77,10 +77,11 @@
        <script>
            $(document).ready(function () {
 
-             $.getJSON("json/redditData.json",function(data){
+             $.getJSON("json/newsdata.json",function(data){
                var reddit_data = '';
                for( var i = 0; i < data.submissions.length; i++) {
                  reddit_data += "<tr>";
+                 reddit_data += "<img src= \" " + 
                  reddit_data += "<td>"+ data.submissions[i].title +"</td>";
                  reddit_data += "<td>" + data.submissions[i].score +"</td>";
                  reddit_data += "</tr>";
