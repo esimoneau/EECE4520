@@ -1,47 +1,55 @@
+'''
+	Contributors: Chris Lau and Cameron Bates
+'''
+
 from datetime import date, datetime
 import praw
 import json
+from APICall import APICall
 
-reddit = praw.Reddit(user_agent = 'userAgent', client_id = 'Wtyt6ZzLdbI6NA', client_secret = '3BxHtc7XdjL28i-xRS_NQPMV_P4')
+class RedditAPI(APICall):
+	
+	def __init__(self):
+		self.reddit = praw.Reddit(user_agent = 'userAgent', client_id = 'Wtyt6ZzLdbI6NA', client_secret = '3BxHtc7XdjL28i-xRS_NQPMV_P4')
+		self.subData = {}
+		self.subData['submissions'] = []
+		self.subData['todaySubs'] = []
 
-subData = {}
-subData['submissions'] = []
-subData['todaySubs'] = []
+	def get_date(self, submission):
+		time = submission.created
+		return date.fromtimestamp(time)
 
-class SearchParam(object):
-    def __init__(self):
-        self.startDate = date(2018, 1, 1)
-        self.endDate = date(2018, 1, 1)
-        self.keyword = ''
+	def get_datetime(self, submission):
+		time = submission.created
+		return datetime.fromtimestamp(time)
 
-def addParams(search):
-    with open('../json/search.json') as jsonFile:
-        data = json.load(jsonFile)
-        for i in data['searchParams']:
-            search.startDate = search.startDate.replace(year=i['startYear'], month=i['startMonth'], day=i['startDay'])
-            search.endDate = search.endDate.replace(year=i['endYear'], month=i['endMonth'], day=i['endDay'])
-            search.keyword = i['keyword']
+	def search(self, keyword, date_start, date_end):
+		for submission in self.reddit.subreddit('politics+worldnews').top(limit = None):
+			if keyword.lower() in str(submission.title).lower() and (self.get_date(submission) > date_start and self.get_date(submission) < date_end):
+				self.subData['submissions'].append({
+					'title': str(submission.title),
+					'subreddit': str(submission.subreddit),
+					'score': int(submission.score),
+					'comments': int(submission.num_comments),
+					'date created': str(self.get_date(submission))
+				})            
 
-def get_date(submission):
-    time = submission.created
-    return date.fromtimestamp(time)
+	def search_today(self, keyword):
+		for submission in reddit.subreddit('politics+worldnews').top(time_filter = 'day', limit = None):
+			if keyword.lower() in str(submission.title).lower():
+				self.subData['todaySubs'].append({
+					'title': str(submission.title),
+					'subreddit': str(submission.subreddit),
+					'score': int(submission.score),
+					'comments': int(submission.num_comments),
+					'time created': str(self.get_datetime(submission).time())
+				})                 
 
-def get_datetime(submission):
-    time = submission.created
-    return datetime.fromtimestamp(time)
+	def parse_results(self):
+		with open('../json/redditData.json', 'w') as outfile:
+			json.dump(self.subData, outfile)
 
-def getSubmissions(keyword, dateStart, dateEnd):
-    for submission in reddit.subreddit('politics+worldnews').top(limit = None):
-        if keyword.lower() in str(submission.title).lower() and (get_date(submission) > dateStart and get_date(submission) < dateEnd):
-            subData['submissions'].append({
-                'title': str(submission.title),
-                'subreddit': str(submission.subreddit),
-                'score': int(submission.score),
-                'comments': int(submission.num_comments),
-                'date created': str(get_datetime(submission).date()),
-                'time created': str(get_datetime(submission).time())
-            })    
-
+'''
 search = SearchParam()
 addParams(search)
 
@@ -49,3 +57,4 @@ getSubmissions(search.keyword, search.startDate, search.endDate)
 
 with open('../json/redditData.json', 'w') as outfile:
     json.dump(subData, outfile)
+'''
