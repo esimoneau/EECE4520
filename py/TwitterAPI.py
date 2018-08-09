@@ -1,4 +1,4 @@
-''
+'''
 	Contributors: Emily Simoneau and Cameron Bates
 '''
 from APICall import APICall
@@ -14,7 +14,7 @@ class TwitterAPI(APICall):
 		
 
 	def search(self, keyword, date_start, date_end):
-		self.results = {'user': [], 'date': [], 'text': [], 'favorite_count': [], 'user_loc':[]}
+		self.results = {'user': [], 'date': [], 'text': [], 'favorite_count': [], 'user_loc':[], 'retweet_count':[]}
 		python_tweets = Twython(self.creds['CONSUMER_KEY'], self.creds['CONSUMER_SECRET'])
 		##date_start_str = self.date_to_string(date_start)
 		##date_end_str = self.date_to_string(date_end)
@@ -24,8 +24,7 @@ class TwitterAPI(APICall):
 			self.results['text'].append(status['text'])
 			self.results['favorite_count'].append(status['favorite_count'])
 			self.results['user_loc'].append(status['coordinates'])
-	`		self.results['retweet_count'].append(status['retweet_count'])
-			self.results['reply_count'].append(status['reply_count'])
+			self.results['retweet_count'].append(status['retweet_count'])
 	'''
 	def date_to_string(self, date_obj) :
 		date_string = str(date_obj.year) + '-'
