@@ -23,7 +23,9 @@ class TwitterAPI(APICall):
 			self.results['date'].append(status['created_at'])
 			self.results['text'].append(status['text'])
 			self.results['favorite_count'].append(status['favorite_count'])
-			self.results['user_loc'].append(status['user']['location'])
+			self.results['user_loc'].append(status['coordinates'])
+	`		self.results['retweet_count'].append(status['retweet_count'])
+			self.results['reply_count'].append(status['reply_count'])
 	'''
 	def date_to_string(self, date_obj) :
 		date_string = str(date_obj.year) + '-'
