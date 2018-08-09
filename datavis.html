@@ -1,0 +1,109 @@
+<!DOCCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mapping the Movements</title>
+
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+<script src"js/newsapi.js"></script>
+
+
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/bootstrap-theme.css">
+<link rel="stylesheet" href="css/datavis.css">
+
+</head>
+
+<body>
+
+  <!--navigation-->
+  <div class="container">
+    <nav class="navbar justify-content-between">
+      <div class="navbar-header pull-left">
+        <img src="images/logo.jpg" width="120px" height="100px">
+      </div>
+      <form class="form-inline pull-left">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search Keyword..." aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+<!--
+      <div class="btn-group pull-left">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Right-aligned menu
+        </button>
+        <div class="dropdown-menu dropdown-menu-right">
+          <button class="dropdown-item" type="button">Action</button>
+          <button class="dropdown-item" type="button">Another action</button>
+          <button class="dropdown-item" type="button">Something else here</button>
+        </div>
+      </div> -->
+
+
+          <div class='input-group date pull-left' id='datetimepicker'>
+              <input type='text' class="form-control" />
+              <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+          </div>
+          <div class='input-group date pull-left' id='datetimepicker2'>
+              <input type='text' class="form-control" />
+              <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+          </div>
+          <script type="text/javascript">
+              $(function () {
+                  $('#datetimepicker').datepicker();
+                  $('#datetimepicker2').datepicker();
+              });
+          </script>
+    </nav>
+</div>
+  <!--end navigation-->
+  <div class="wrapper">
+  <div class="container-fluid" id="home">
+   <div class="row">
+     <div class="col-md-6 grid"> </div>
+     <div class="col-md-6 grid" id="showData">
+       <table id="reddit-table">
+      </table>
+
+       <script>
+           $(document).ready(function () {
+
+             $.getJSON("json/redditData.json",function(data){
+               var reddit_data = '';
+               for( var i = 0; i < data.articles.length; i++) {
+                 reddit_data += "<tr>";
+                 reddit data += "<img src= \"" + data.articles.urlToImage + "\" class = \"img-thumbnail\" >" ;
+                 reddit_data += "<td>"+ data.submissions[i].title +"</td>";
+                 reddit_data += "<td>" + data.submissions[i].score +"</td>";
+                 reddit_data += "</tr>";
+               }
+               $('#reddit-table').append(reddit_data);
+             });
+           });
+       </script>
+
+     </div>
+
+  </div>
+ </div>
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+   <!-- <script src="js/bootstrap.js"></script> -->
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+
+  </body>
+  </html>
