@@ -1,5 +1,5 @@
 from NewsAPI import NewsAPI
-from RedditAPI import RedditAPI
+from redditAPI import RedditAPI
 from TwitterAPI import TwitterAPI
 import json
 from datetime import date, datetime
@@ -23,18 +23,18 @@ class SearchParam(object):
 	
 def runSearch():
 	search_param = SearchParam()
+	startDate_str = search_param.startDate.strftime('%Y-%m-%d')
+	endDate_str = search_param.endDate.strftime('%Y-%m-%d')
 	
 	##News API
 	news_api = NewsAPI()
-	news_start = search_param.startDate.strftime('%Y-%m-%d')
-	news_end = search_param.endDate.strftime('%Y-%m-%d')
-	news_api.search(search_param.keyword, news_start, news_end)
+	news_api.search(search_param.keyword, startDate_str, endDate_str)
 	news_api.parse_results()
 	
 	##Social Media API
 	##if search_param.platform = 'Twitter' run twitter search
 	twitter_api = TwitterAPI()
-	twitter_api.search(search_param.keyword, search_param.startDate, search_param.endDate)
+	twitter_api.search(search_param.keyword, startDate_str, endDate_str)
 	twitter_api.parse_results()
 	
 	
