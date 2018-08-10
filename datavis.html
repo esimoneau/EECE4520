@@ -44,7 +44,7 @@
         </div>
       </div> -->
 
-
+<div class="wrapper">
           <div class='input-group date pull-left' id='datetimepicker'>
               <input type='text' class="form-control" />
               <span class="input-group-addon">
@@ -66,32 +66,32 @@
     </nav>
 </div>
   <!--end navigation-->
-  <div class="wrapper">
-  <div class="container-fluid" id="home">
+  <div class="container" id="home">
    <div class="row">
      <div class="col-md-6 grid"> </div>
      <div class="col-md-6 grid" id="showData">
-       <table id="reddit-table">
+       <table id="newsapi-table">
+
       </table>
       <script>
           $(document).ready(function () {
-            $.getJSON("json/newdata.json",function(data){
-              var reddit_data = '';
+            $.getJSON("json/newsdata.json",function(data){
+              var newsapi_data = '';
               for( var i = 0; i < data.articles.length; i++) {
-                reddit_data += "<tr>";
-                reddit data += "<img src= \"" + data.articles.urlToImage + "\" class = \"img-thumbnail\" >" ;
-                reddit_data += "<td>"+ data.submissions[i].title +"</td>";
-                reddit_data += "<td>" + data.submissions[i].score +"</td>";
-                reddit_data += "</tr>";
+                newsapi_data += "<tr>";
+                newsapi_data += '<td><img src= "' + data.articles[i].urlToImage + '" class = "newsicons pull-left" ></img>';
+                newsapi_data += '<a href="' + data.articles[i].url + '" target="_blank">' + data.articles[i].title + '</a>';
+                newsapi_data +=  "<br>" + data.articles[i].author +"</td>";
+                newsapi_data += "</tr>";
               }
-              $('#reddit-table').append(reddit_data);
+              $('#newsapi-table').append(newsapi_data);
             });
           });
       </script>
-
      </div>
 
   </div>
+ </div>
  </div>
 
   <!-- Bootstrap core JavaScript
