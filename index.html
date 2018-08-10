@@ -31,33 +31,34 @@
 
     <div class="jumbotron">
      <!-- Search form -->
+    <form action="py/controller.py" method="get">
       <div class="input-group">
-      	<input type="text" class="form-control" placeholder="Search for keyword...">
+      	<input type="text" class="form-control" name="Keyword" id="keyword" value="Search for keyword..." placeholder="Search for keyword...">
             <span class="input-group-btn">
-              <button class="btn btn-search" type="button"><i class="fa fa-search fa-fw"></i> Search</button>
+              <button class="btn btn-search" type="submit" onclick = "myFunction()"><i class="fa fa-search fa-fw"></i> Search</button>
+              <script>
+                function myFunction() {
+                window.location.href="datavis.html";
+                }
+              </script>
             </span>
       </div>
 
      <!-- Checkboxes -->
-  <form>
   <div class="form-horizontal">
     <div class = "form-group" >
       <div class="col-sm-2">
-        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+        <input class="form-check-input" name="Twitter" type="checkbox" id="inlineCheckbox1" value="option1" checked>
         <label class="form-check-label" for="inlineCheckbox1">Twitter</label>
       </div>
       <div class="col-sm-2">
-        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+        <input class="form-check-input" name = "Reddit" type="checkbox" id="inlineCheckbox2" value="option2">
         <label class="form-check-label" for="inlineCheckbox2">Reddit</label>
-      </div>
-      <div class="col-sm-2">
-        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" disabled>
-        <label class="form-check-label" for="inlineCheckbox3">News </label>
       </div>
       <div class='col-sm-3'> From:
           <div class="form-group">
               <div class='input-group date' id='datetimepicker'>
-                  <input type='text' class="form-control" />
+                  <input type='text' name="Date1" class="form-control" />
                   <span class="input-group-addon">
                       <span class="glyphicon glyphicon-calendar"></span>
                   </span>
@@ -67,7 +68,7 @@
       <div class='col-sm-3'> To:
           <div class="form-group">
               <div class='input-group date' id='datetimepicker2'>
-                  <input type='text' class="form-control" />
+                  <input type='text' name="Date2" class="form-control" />
                   <span class="input-group-addon">
                       <span class="glyphicon glyphicon-calendar"></span>
                   </span>
