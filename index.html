@@ -31,14 +31,25 @@
 
     <div class="jumbotron">
      <!-- Search form -->
-    <form action="py/controller.py" method="get">
+    <form action="py/Controller.py" method="get">
       <div class="input-group">
-      	<input type="text" class="form-control" name="Keyword" id="keyword" value="Search for keyword..." placeholder="Search for keyword...">
+      	<input type="text" class="form-control" name="Keyword" id="keyword" style="color: white" value="" placeholder="Search for keyword...">
             <span class="input-group-btn">
-              <button class="btn btn-search" type="submit" onclick = "myFunction()"><i class="fa fa-search fa-fw"></i> Search</button>
+              <button class="btn btn-search" type="submit" onclick = "myFunction()" target='_blank'><i class="fa fa-search fa-fw"></i> Search</button>
+            <!--  <p id="error_message"></p> -->
               <script>
                 function myFunction() {
-                window.location.href="datavis.html";
+                  /*  var error_message, x;
+                    error_message = document.getElementById("error_message");
+                    error_message.innerHTML = "";
+                    x = document.getElementById("keyword").value;
+                    try {
+                        if(x == "") throw "is Empty";
+                    }
+                    catch(err) {
+                        error_message.innerHTML = "Input " + err;
+                    } */
+                    window.location.href="datavis.html";
                 }
               </script>
             </span>
@@ -59,17 +70,17 @@
           <div class="form-group">
               <div class='input-group date' id='datetimepicker'>
                   <input type='text' name="Date1" class="form-control" />
-                  <span class="input-group-addon">
+                  <span class="input-group-addon" style="color: black">
                       <span class="glyphicon glyphicon-calendar"></span>
                   </span>
               </div>
           </div>
       </div>
-      <div class='col-sm-3'> To:
+      <div class='col-sm-3' id="label"> To:
           <div class="form-group">
-              <div class='input-group date' id='datetimepicker2'>
-                  <input type='text' name="Date2" class="form-control" />
-                  <span class="input-group-addon">
+              <div class='input-group date' id='datetimepicker2' style="padding-left: 10px">
+                  <input type='text' name="Date2" class="form-control"/>
+                  <span class="input-group-addon" style="color: black">
                       <span class="glyphicon glyphicon-calendar"></span>
                   </span>
               </div>
