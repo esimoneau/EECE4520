@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mtm.apps.MtmConfig'
 ]
 
 MIDDLEWARE = [
@@ -113,8 +114,33 @@ USE_L10N = True
 
 USE_TZ = True
 
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static/js"),
+    os.path.join(BASE_DIR, "static/css"),
+	os.path.join(BASE_DIR, "static/css"),
+]
+
+TEMPLATES = [
+    {
+        'BACKEND':'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+        os.path.join(BASE_DIR, "templates"),
+        ],
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    }
+]
