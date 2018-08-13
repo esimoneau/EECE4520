@@ -2,7 +2,7 @@
 	Contributors: Emily Simoneau and Cameron Bates
 '''
 from APICall import APICall
-from twython import Twython
+from twitter import Twitter, OAuth, TwitterHTTPError, TwitterStream
 import json
 ##from datetime import date, datetime
 
@@ -15,10 +15,11 @@ class TwitterAPI(APICall):
 
 	def search(self, keyword, date_start, date_end):
 		self.results = {'user': [], 'date': [], 'text': [], 'favorite_count': [], 'user_loc':[], 'retweet_count':[]}
-		python_tweets = Twython(self.creds['CONSUMER_KEY'], self.creds['CONSUMER_SECRET'])
+		oauth = OAuth(self.creds['ACCESS_TOKEN'], self.creds['ACCESS_SECRET'], self.creds['CONSUMER_KEY'], self.creds['CONSUMER_SECRET'])
+		twitter = Twitter(auth=oauth)
 		##date_start_str = self.date_to_string(date_start)
 		##date_end_str = self.date_to_string(date_end)
-		for status in python_tweets.cursor(twitter.search, q=keyword, until=date_end, since=date_start, result_type='popular', count=100)['statuses']:
+		for status in twitter.search.tweets(q=keyword, until=date_end, since=date_start, result_type='popular', count=100)['statuses']:
 			self.results['user'].append(status['user']['screen_name'])
 			self.results['date'].append(status['created_at'])
 			self.results['text'].append(status['text'])
