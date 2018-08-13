@@ -15,6 +15,7 @@ class TwitterAPI(APICall):
 
 	def search(self, keyword, date_start, date_end):
 		self.results = {'user': [], 'date': [], 'text': [], 'favorite_count': [], 'user_loc':[], 'retweet_count':[]}
+		self.wc_results = [];
 		oauth = OAuth(self.creds['ACCESS_TOKEN'], self.creds['ACCESS_SECRET'], self.creds['CONSUMER_KEY'], self.creds['CONSUMER_SECRET'])
 		twitter = Twitter(auth=oauth)
 		##date_start_str = self.date_to_string(date_start)
@@ -26,6 +27,23 @@ class TwitterAPI(APICall):
 			self.results['favorite_count'].append(status['favorite_count'])
 			self.results['user_loc'].append(status['coordinates'])
 			self.results['retweet_count'].append(status['retweet_count'])
+		format_data(self)
+		
+	def format_data(self) :
+		words = [];
+		freq =  [];
+		tweets = self.results["text"];
+		for tweet in tweets:
+			split_content = tweet.split(" ")
+			for word in split_content:
+				if word in words:
+					freq[words.index(word)] = freq[words.index(word)] + 1
+				else:
+					freq.append(1)
+					words.append(word)
+		max_value = max(freq)
+		for entry in freq:
+			self.wc_results.append({"text" : words[entry.index], "size" = entry / max})
 	'''
 	def date_to_string(self, date_obj) :
 		date_string = str(date_obj.year) + '-'
@@ -39,5 +57,8 @@ class TwitterAPI(APICall):
 	'''
 	def parse_results(self):
 		if self.results != {}:
+			with open('../json/twitterData.json', 'w') as outfile:
+				json.dump(self.results, outfile, indent = 4)
+		if self.wc_results != {}:
 			with open('../json/twitterData.json', 'w') as outfile:
 				json.dump(self.results, outfile, indent = 4)
