@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+<head>  
+<script>
+    
+var xmlhttp = new XMLHttpRequest();
+var url = "subredditData.json";
+
+var freqs = [];
+var subreddits = [];
+
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var myArr = JSON.parse(this.responseText);
+        myFunction(myArr);
+    }
+};
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+
+function myFunction(arr) {
+    var i;
+    for(i = 0; i < arr.length; i++) {
+        subreddits.push(arr[i].subreddit);
+        freqs.push(arr[i].frequency);
+    }
+}
+
+window.onload = function () {
+    
+//var obj = JSON.parse('subredditData.json);
+    
+var obj1 = {
+    subreddit:"politics",
+    frequency:189
+};
+
+var obj2 = {
+    subreddit:"worldnews",
+    frequency:99
+};
+
+var objList = [obj1, obj2];
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	
+	title:{
+		text:"Number of Submissions per Subreddit"
+	},
+	axisX:{
+		interval: 1
+	},
+	axisY2:{
+		interlacedColor: "rgba(1,77,101,.2)",
+		gridColor: "rgba(1,77,101,.1)",
+		title: "Number of Submissions"
+	},
+	data: [{
+		type: "bar",
+		name: "companies",
+		axisYType: "secondary",
+		color: "#014D65",
+		dataPoints: [
+			{ y: freqs[0], label: subreddits[0] },
+			{ y: freqs[1], label: subreddits[1] }
+		]
+	}]
+});
+chart.render();
+
+};
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>
