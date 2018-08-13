@@ -1,0 +1,38 @@
+[
+    {
+        "text": "Washington, D.C.",
+        "size": 0.5
+    },
+    {
+        "text": "Washington, DC",
+        "size": 0.5
+    },
+    {
+        "text": "Los Angeles, CA",
+        "size": 0.5
+    },
+    {
+        "text": "DC",
+        "size": 0.25
+    },
+    {
+        "text": "",
+        "size": 1.0
+    },
+    {
+        "text": "Washington, D.C./NoVa",
+        "size": 0.25
+    },
+    {
+        "text": "New York",
+        "size": 0.25
+    },
+    {
+        "text": "Chicago, Illinois",
+        "size": 0.25
+    },
+    {
+        "text": "Coral Gables, Fl",
+        "size": 0.25
+    }
+]

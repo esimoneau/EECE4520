@@ -23,17 +23,18 @@ class TwitterAPI(APICall):
 		##date_end_str = self.date_to_string(date_end)
 		for status in twitter.search.tweets(q=keyword, until=date_end, since=date_start, result_type='popular', count=100)['statuses']:
 			self.results['user'].append(status['user']['screen_name'])
+			print('Please be here')
 			self.results['date'].append(status['created_at'])
 			self.results['text'].append(status['text'])
 			self.results['favorite_count'].append(status['favorite_count'])
-			self.results['user_loc'].append(status['coordinates'])
+			self.results['user_loc'].append(status['user']['location'])
 			self.results['retweet_count'].append(status['retweet_count'])
 		self.format_data()
 		
 	def format_data(self) :
 		words = []
-		locs =[]
-		freq =  []
+		locs = []
+		freq = []
 		locs_freq = []
 		tweets = self.results["text"]
 		locations = self.results["user_loc"]
@@ -56,11 +57,12 @@ class TwitterAPI(APICall):
 		index = 0
 		for entry in freq:
 			self.wc_results.append({"text" : words[index], "size" : entry / max_value})
-			index = index + 1
+			index = index + 1 
 		index = 0
 		for entry in locs_freq:
 			self.lc_results.append({"text" : locs[index], "size" : entry / max_loc})
 			index = index + 1
+			print('Made it here too')
 			
 	'''
 	def date_to_string(self, date_obj) :
