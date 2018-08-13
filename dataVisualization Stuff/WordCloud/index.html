@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style> /* set the CSS */
+.line {
+fill: none;
+stroke: steelblue;
+    stroke-width: 2px;
+}
+</style>
+<body>
+
+<!-- load the d3.js library -->
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+// set the dimensions and margins of the graph
+var margin = {top: 20, right: 20, bottom: 30, left: 50},
+width = 960 - margin.left - margin.right,
+height = 500 - margin.top - margin.bottom;
+// parse the date / time
+var parseTime = d3.timeParse("%Y-%m-%d");
+// set the ranges
+var x = d3.scaleTime().range([0, width]);
+var y = d3.scaleLinear().range([height, 0]);
+// define the line
+var valueline = d3.line()
+.x(function(d) { return x(d["date created"]); })
+.y(function(d) { return y(d["comments"]); });
+
+// append the svg obgect to the body of the page
+// appends a 'group' element to 'svg'
+// moves the 'group' element to the top left margin
+var svg = d3.select("body").append("svg")
+.attr("width", width + margin.left + margin.right)
+.attr("height", height + margin.top + margin.bottom)
+.append("g")
+.attr("transform",
+      "translate(" + margin.left + "," + margin.top + ")");
+
+// Format the data into a nx2 array
+// output[x][0] is the word being looked at
+// output[x][1] is the normalized frequency that it is used
+function dataFormat(data) {
+    var words = [];
+    var freq = [];
+    var output = [];
+    var tweets = data["text"];
+    // Evaluate each tweet
+    tweets.forEach(function(content) {
+        split_content = content.split(" ");
+        // Evaluate each word in each tweet
+        split_content.forEach(function(word) {
+            // If the word has already been found, update the count
+            if (words.includes(word.toUpperCase())) {
+                var index = words.indexOf(word.toUpperCase());
+                freq[index] = freq[index] + 1;
+            } else {
+                // Otherwise, add that new word to the list of words found
+                words[words.length] = word;
+                freq[words.length] = 1;
+            }
+        });
+    });
+    //Normalize the frequency with the most frequent being 1.0
+    var max = Math.max(...freq);
+    var curr_index = 0;
+    freq.forEach(function(num) {
+        output[curr_index] = [words[curr_index], num / max];
+        curr_index++;
+    });
+    
+    return output;
+}
+
+function draw(words) {
+    d3.select("body").append("svg")
+    .attr("width", 600)
+    .attr("height", 600)
+    .append("g")
+    .attr("transform", "translate(300,300)")
+    .selectAll("text")
+    .data(words)
+    .enter().append("text")
+    .style("font-size", function(d) { return d.size + "px"; })
+    .style("font-family", "Impact")
+    .style("fill", function(d, i) { return fill(i); })
+    .attr("text-anchor", "middle")
+    .attr("transform", function(d) {
+        return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+    })
+    .text(function(d) { return d.text; });
+}
+// Get the data
+d3.json("twitterData.json", function(error, data) {
+    if (error) throw error;
+    var formatted_data = dataFormat(data);
+    d3.layout.cloud()
+        .size([600, 600])
+        .words(formatted_data
+           .map(function(d) {
+                return {text: d[0], size: d[1] * 100};}))
+            .padding(5)
+            .rotate(function() { return ~~(Math.random() * 0) * 90; })
+            .font("Impact")
+            .fontSize(function(d) { return d.size; })
+            .on("end", draw)
+            .start();
+});
+</script>
+</body>
+
