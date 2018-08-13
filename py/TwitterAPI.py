@@ -15,7 +15,8 @@ class TwitterAPI(APICall):
 
 	def search(self, keyword, date_start, date_end):
 		self.results = {'user': [], 'date': [], 'text': [], 'favorite_count': [], 'user_loc':[], 'retweet_count':[]}
-		self.wc_results = [];
+		self.wc_results = {'data' : []};
+		self.lc_results = {'data' : []};
 		oauth = OAuth(self.creds['ACCESS_TOKEN'], self.creds['ACCESS_SECRET'], self.creds['CONSUMER_KEY'], self.creds['CONSUMER_SECRET'])
 		twitter = Twitter(auth=oauth)
 		##date_start_str = self.date_to_string(date_start)
@@ -30,9 +31,12 @@ class TwitterAPI(APICall):
 		self.format_data()
 		
 	def format_data(self) :
-		words = [];
-		freq =  [];
-		tweets = self.results["text"];
+		words = []
+		locs =[]
+		freq =  []
+		locs_freq = []
+		tweets = self.results["text"]
+		locations = self.results["user_loc"]
 		for tweet in tweets:
 			split_content = tweet.split(" ")
 			for word in split_content:
@@ -41,11 +45,23 @@ class TwitterAPI(APICall):
 				else:
 					freq.append(1)
 					words.append(word)
+		for location in locations:
+			if location in locs:
+				locs_freq[locs.index(location)] = locs_freq[locs.index(location)] + 1
+			else:
+					locs_freq.append(1)
+					locs.append(location)
 		max_value = max(freq)
+		max_loc = max(locs_freq)
 		index = 0
 		for entry in freq:
-			self.wc_results.append({"text" : words[index], "size" : entry / max_value})
+			self.wc_results['data'].append({"text" : words[index], "size" : entry / max_value})
 			index = index + 1
+		index = 0
+		for entry in locs_freq:
+			self.lc_results['data'].append({"text" : locs[index], "size" : entry / max_loc})
+			index = index + 1
+			
 	'''
 	def date_to_string(self, date_obj) :
 		date_string = str(date_obj.year) + '-'
@@ -62,5 +78,8 @@ class TwitterAPI(APICall):
 			with open('../json/twitterData.json', 'w') as outfile:
 				json.dump(self.results, outfile, indent = 4)
 		if self.wc_results != {}:
-			with open('../json/twitterData.json', 'w') as outfile:
-				json.dump(self.results, outfile, indent = 4)
+			with open('../json/twitterWCData.json', 'w') as outfile:
+				json.dump(self.wc_results, outfile, indent = 4)
+		if self.lc_results != {}:
+			with open('../json/twitterLCData.json', 'w') as outfile:
+				json.dump(self.lc_results, outfile, indent = 4)
