@@ -1,38 +1,38 @@
 [
     {
         "text": "Washington, D.C.",
-        "size": 0.5
+        "size": 50.0
     },
     {
         "text": "Washington, DC",
-        "size": 0.5
+        "size": 50.0
     },
     {
         "text": "Los Angeles, CA",
-        "size": 0.5
+        "size": 50.0
     },
     {
         "text": "DC",
-        "size": 0.25
+        "size": 25.0
     },
     {
         "text": "",
-        "size": 1.0
+        "size": 100.0
     },
     {
         "text": "Washington, D.C./NoVa",
-        "size": 0.25
+        "size": 25.0
     },
     {
         "text": "New York",
-        "size": 0.25
+        "size": 25.0
     },
     {
         "text": "Chicago, Illinois",
-        "size": 0.25
+        "size": 25.0
     },
     {
         "text": "Coral Gables, Fl",
-        "size": 0.25
+        "size": 25.0
     }
 ]
