@@ -44,7 +44,7 @@ class TwitterAPI(APICall):
 		max_value = max(freq)
 		index = 0
 		for entry in freq:
-			self.wc_results.append({"text" : words[index], "size" : entry / max})
+			self.wc_results.append({"text" : words[index], "size" : entry / max_value})
 			index = index + 1
 	'''
 	def date_to_string(self, date_obj) :
