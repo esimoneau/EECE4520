@@ -43,7 +43,7 @@ class TwitterAPI(APICall):
 					words.append(word)
 		max_value = max(freq)
 		for entry in freq:
-			self.wc_results.append({"text" : words[entry.index], "size" = entry / max})
+			self.wc_results.append({"text" : words[entry.index], "size" : entry / max})
 	'''
 	def date_to_string(self, date_obj) :
 		date_string = str(date_obj.year) + '-'
