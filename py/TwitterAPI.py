@@ -27,7 +27,7 @@ class TwitterAPI(APICall):
 			self.results['favorite_count'].append(status['favorite_count'])
 			self.results['user_loc'].append(status['coordinates'])
 			self.results['retweet_count'].append(status['retweet_count'])
-		format_data(self)
+		self.format_data()
 		
 	def format_data(self) :
 		words = [];
