@@ -56,11 +56,11 @@ class TwitterAPI(APICall):
 		max_loc = max(locs_freq)
 		index = 0
 		for entry in freq:
-			self.wc_results.append({"text" : words[index], "size" : entry / max_value})
+			self.wc_results.append({"text" : words[index], "size" : (entry / max_value) * 100})
 			index = index + 1 
 		index = 0
 		for entry in locs_freq:
-			self.lc_results.append({"text" : locs[index], "size" : entry / max_loc})
+			self.lc_results.append({"text" : locs[index], "size" : (entry / max_loc) * 100})
 			index = index + 1
 			print('Made it here too')
 			
