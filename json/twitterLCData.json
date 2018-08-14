@@ -1,38 +1,11 @@
-[
-    {
-        "text": "Washington, D.C.",
-        "size": 50.0
-    },
-    {
-        "text": "Washington, DC",
-        "size": 50.0
-    },
-    {
-        "text": "Los Angeles, CA",
-        "size": 50.0
-    },
-    {
-        "text": "DC",
-        "size": 25.0
-    },
-    {
-        "text": "",
-        "size": 100.0
-    },
-    {
-        "text": "Washington, D.C./NoVa",
-        "size": 25.0
-    },
-    {
-        "text": "New York",
-        "size": 25.0
-    },
-    {
-        "text": "Chicago, Illinois",
-        "size": 25.0
-    },
-    {
-        "text": "Coral Gables, Fl",
-        "size": 25.0
+{
+    "count": {
+        "Washington, D.C.": 2,
+        "Washington, DC": 1,
+        "Los Angeles, CA": 2,
+        "DC": 4,
+        "": 1,
+        "Washington, D.C./NoVa": 1,
+        "New York": 1
     }
-]
+}

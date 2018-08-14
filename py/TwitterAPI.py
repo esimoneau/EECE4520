@@ -15,8 +15,8 @@ class TwitterAPI(APICall):
 
 	def search(self, keyword, date_start, date_end):
 		self.results = {'user': [], 'date': [], 'text': [], 'favorite_count': [], 'user_loc':[], 'retweet_count':[]}
-		self.wc_results = [];
-		self.lc_results = [];
+		self.wc_results = {'count' : {}};
+		self.lc_results = {'count' : {}};
 		oauth = OAuth(self.creds['ACCESS_TOKEN'], self.creds['ACCESS_SECRET'], self.creds['CONSUMER_KEY'], self.creds['CONSUMER_SECRET'])
 		twitter = Twitter(auth=oauth)
 		##date_start_str = self.date_to_string(date_start)
@@ -56,11 +56,11 @@ class TwitterAPI(APICall):
 		max_loc = max(locs_freq)
 		index = 0
 		for entry in freq:
-			self.wc_results.append({"text" : words[index], "size" : (entry / max_value) * 100})
+			self.wc_results['count'][words[index]] = entry
 			index = index + 1 
 		index = 0
 		for entry in locs_freq:
-			self.lc_results.append({"text" : locs[index], "size" : (entry / max_loc) * 100})
+			self.lc_results['count'][locations[index]] = entry
 			index = index + 1
 			print('Made it here too')
 			
