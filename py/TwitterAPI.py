@@ -15,6 +15,7 @@ class TwitterAPI(APICall):
 
 	def search(self, keyword, date_start, date_end):
 		self.results = {'user': [], 'date': [], 'text': [], 'favorite_count': [], 'user_loc':[], 'retweet_count':[]}
+		self.eg_results = {"results" : [];
 		self.wc_results = {'count' : {}};
 		self.lc_results = {'count' : {}};
 		oauth = OAuth(self.creds['ACCESS_TOKEN'], self.creds['ACCESS_SECRET'], self.creds['CONSUMER_KEY'], self.creds['CONSUMER_SECRET'])
@@ -29,6 +30,7 @@ class TwitterAPI(APICall):
 			self.results['favorite_count'].append(status['favorite_count'])
 			self.results['user_loc'].append(status['user']['location'])
 			self.results['retweet_count'].append(status['retweet_count'])
+			self.eg_results["results"].append({"date": status['created_at'], "engagement": status['favorite_count'] + status['retweet_count']});
 		self.format_data()
 		
 	def format_data(self) :
@@ -62,7 +64,6 @@ class TwitterAPI(APICall):
 		for entry in locs_freq:
 			self.lc_results['count'][locations[index]] = entry
 			index = index + 1
-			print('Made it here too')
 			
 	'''
 	def date_to_string(self, date_obj) :
@@ -85,3 +86,6 @@ class TwitterAPI(APICall):
 		if self.lc_results != {}:
 			with open('../json/twitterLCData.json', 'w') as outfile:
 				json.dump(self.lc_results, outfile, indent = 4)
+		if self.eg_results != {}:
+			with open('../json/twitterEGData.json', 'w') as outfile:
+				json.dump(self.eg_results, outfile, indent = 4);
