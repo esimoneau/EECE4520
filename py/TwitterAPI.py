@@ -15,7 +15,7 @@ class TwitterAPI(APICall):
 
 	def search(self, keyword, date_start, date_end):
 		self.results = {'user': [], 'date': [], 'text': [], 'favorite_count': [], 'user_loc':[], 'retweet_count':[]}
-		self.eg_results = {"results" : [];
+		self.eg_results = {"results" : []};
 		self.wc_results = {'count' : {}};
 		self.lc_results = {'count' : {}};
 		oauth = OAuth(self.creds['ACCESS_TOKEN'], self.creds['ACCESS_SECRET'], self.creds['CONSUMER_KEY'], self.creds['CONSUMER_SECRET'])
