@@ -11,6 +11,16 @@ function LineGraph(options) {
   w = width;
   h = height;
 
+  //generate code
+  function domain () {
+    this.stroke="#000"
+    this.d="M-6,450.5H0.5V0.5H-6"
+  }
+
+  function g () {
+
+  }
+
   // parse the date / time
   var parseTime = d3.timeParse("%Y-%m-%d");
 
@@ -167,7 +177,8 @@ function SaveButton(options) {
   function svgString2Image( svgString, width, height, format, callback ) {
     var format = format ? format : 'png';
 
-    var imgsrc = 'data:image/svg+xml;base64,'+ btoa( unescape( encodeURIComponent( svgString ) ) ); // Convert SVG string to data URL
+    var imgsrc = 'data:image/svg+xml;base64,' + btoa(
+        unescape(encodeURIComponent(svgString))); // Convert SVG string to data URL
 
     var canvas = document.createElement("canvas");
     var context = canvas.getContext("2d");
@@ -176,16 +187,15 @@ function SaveButton(options) {
     canvas.height = height;
 
     var image = new Image();
-    image.onload = function() {
-      context.clearRect ( 0, 0, width, height );
+    image.src = svgString;
+    image.onload = function () {
+      context.clearRect(0, 0, width, height);
       context.drawImage(image, 0, 0, width, height);
 
-      canvas.toBlob( function(blob) {
-        var filesize = Math.round( blob.length/1024 ) + ' KB';
-        if ( callback ) callback( blob, filesize );
-      });
-
-
+      var a = document.createElement("a");
+      a.download = "datavisualization.jpeg";
+      a.href = canvas.toDataURL("image/jpeg");
+      a.click();
     };
 
     image.src = imgsrc;

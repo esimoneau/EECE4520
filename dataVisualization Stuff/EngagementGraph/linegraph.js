@@ -176,16 +176,15 @@ function SaveButton(options) {
     canvas.height = height;
 
     var image = new Image();
+    image.src = svgString;
     image.onload = function() {
-      context.clearRect ( 0, 0, width, height );
+      context.clearRect(0, 0, width, height);
       context.drawImage(image, 0, 0, width, height);
 
-      canvas.toBlob( function(blob) {
-        var filesize = Math.round( blob.length/1024 ) + ' KB';
-        if ( callback ) callback( blob, filesize );
-      });
-
-
+      var a = document.createElement("a");
+      a.download = "datavisualization.jpeg";
+      a.href = canvas.toDataURL("image/jpeg");
+      a.click();
     };
 
     image.src = imgsrc;
