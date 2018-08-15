@@ -1,0 +1,22 @@
+.label-background-strong {
+  fill: white;
+  fill-opacity: .8;
+}
+
+#wolfstar-container {
+  cursor: default;
+}
+
+svg text{
+  font-family: Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+.arc text {
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+.arc path {
+  stroke: #fff;
+}

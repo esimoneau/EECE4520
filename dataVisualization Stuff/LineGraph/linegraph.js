@@ -1,74 +1,81 @@
 var svg;
-var width;
-var height;
+var w;
+var h;
 
-function WordCloud(options) {
-  var margin = {top: 70, right: 100, bottom: 0, left: 100},
-      w = 1200 - margin.left - margin.right,
-      h = 400 - margin.top - margin.bottom;
-  width = w = 1200 - margin.left - margin.right;
+function LineGraph(options) {
+  // set the dimensions and margins of the graph
+  var margin = {top: 20, right: 20, bottom: 30, left: 50},
+      width = 960 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
 
-  // create the svg
-  svg = d3.select(options.container).append("svg")
-  .attr('height', h + margin.top + margin.bottom)
-  .attr('width', w + margin.left + margin.right)
+  w = width;
+  h = height;
 
-  // set the ranges for the scales
-  var xScale = d3.scaleLinear().range([10, 100]);
+  // parse the date / time
+  var parseTime = d3.timeParse("%Y-%m-%d");
 
-  var focus = svg.append('g')
-  .attr("transform", "translate(" + [w/2, h/2+margin.top] + ")")
+  // set the ranges
+  var x = d3.scaleTime().range([0, width]);
+  var y = d3.scaleLinear().range([height, 0]);
 
-  var colorMap = ['red', '#a38b07'];
+  // define the line
+  var valueline = d3.line()
+  .x(function(d) { return x(d["date created"]); })
+  .y(function(d) { return y(d["comments"]); });
 
-  // seeded random number generator
-  var arng = new alea('hello.');
+  // append the svg obgect to the body of the page
+  // appends a 'group' element to 'svg'
+  // moves the 'group' element to the top left margin
+  svg = d3.select("body").append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+  .attr("transform",
+      "translate(" + margin.left + "," + margin.top + ")");
 
-  var data;
-  d3.json(options.data, function(error, d) {
+
+  // Get the data
+  d3.json(options.data, function(error, data) {
     if (error) throw error;
-    data = d;
-    var word_entries = d3.entries(data['count']);
-    xScale.domain(d3.extent(word_entries, function(d) {return d.value;}));
 
-    makeCloud();
-
-    function makeCloud() {
-      d3.layout.cloud().size([w, h])
-      .timeInterval(20)
-      .words(word_entries)
-      .fontSize(function(d) { return xScale(+d.value); })
-      .text(function(d) { return d.key; })
-      .font("Impact")
-      .random(arng)
-      .on("end", function(output) {
-        // sometimes the word cloud can't fit all the words- then redraw
-        // https://github.com/jasondavies/d3-cloud/issues/36
-        if (word_entries.length !== output.length) {
-          console.log("not all words included- recreating");
-          makeCloud();
-          return undefined;
-        } else { draw(output); }
-      })
-      .start();
-    }
-
-    d3.layout.cloud().stop();
-
+    // trigger render
+    draw(data, "submissions");
   });
 
-  function draw(words) {
-    focus.selectAll("text")
-    .data(words)
-    .enter().append("text")
-    .style("font-size", function(d) { return xScale(d.value) + "px"; })
-    .style("font-family", "Impact")
-    .style("fill", function(d, i) { return colorMap[~~(arng() *2)]; })
-    .attr("text-anchor", "middle")
-    .attr("transform", function(d) {
-      return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-    })
-    .text(function(d) { return d.key; });
+  function draw(data, country) {
+
+    var data = data[country];
+
+    // format the data
+    data.forEach(function(d) {
+      d["date created"] = parseTime(d["date created"]);
+      d.comments = +d.comments;
+    });
+
+    // sort years ascending
+    data.sort(function(a, b){
+      return a["date created"]-b["date created"];
+    });
+
+    // Scale the range of the data
+    x.domain(d3.extent(data, function(d) { return d["date created"]; }));
+    y.domain([0, d3.max(data, function(d) {
+      return d["comments"]; })]);
+
+    // Add the valueline path.
+    svg.append("path")
+    .data([data])
+    .attr("class", "line")
+    .attr("d", valueline);
+
+    // Add the X Axis
+    svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
+
+    // Add the Y Axis
+    svg.append("g")
+    .call(d3.axisLeft(y));
   }
 }
 
@@ -76,8 +83,8 @@ function SaveButton(options) {
   // Set-up the export button
   d3.select('#saveButton').on('click', function(){
     var svgString = getSVGString(svg.node());
-    svgString2Image( svgString, 2*width, 2*height, 'png', save ); // passes Blob and filesize String to the callback
-
+    console.log(svgString);
+    svgString2Image( svgString, 2*w, 2*h, 'png', save ); // passes Blob and filesize String to the callback
     function save( dataBlob, filesize ){
       saveAs( dataBlob, 'D3 vis exported to PNG.png' ); // FileSaver.js function
     }
@@ -91,7 +98,7 @@ function SaveButton(options) {
     appendCSS( cssStyleText, svgNode );
 
     var serializer = new XMLSerializer();
-    var svgString = serializer.serializeToString(svgNode);
+    var svgString = serializer.serializeToString(d3.select('svg').node());
     svgString = svgString.replace(/(\w+)?:?xlink=/g, 'xmlns:xlink='); // Fix root xlink without namespace
     svgString = svgString.replace(/NS\d+:href/g, 'xlink:href'); // Safari NS namespace fix
 

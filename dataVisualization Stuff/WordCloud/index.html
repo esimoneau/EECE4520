@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>After All This Time?</title>
+  <title>Word Cloud</title>
   <!-- Import D3 -->
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <!-- Random number generator -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.3/lib/alea.min.js"></script>
   <!-- d3-cloud library -->
   <script src="d3.layout.cloud.js"></script>
+  <script src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js"></script>
+  <script src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
   <link rel="stylesheet" type='text/css' href="style.css">
 
 </head>
@@ -16,6 +18,9 @@
 <body>
 
 <div id='cloud-container'></div>
+<div>
+  <button id='saveButton'>Export my D3 visualization to PNG</button>
+</div>
 
 <script src="wordcloud.js"></script>
 <script>
@@ -23,6 +28,8 @@
     container: '#cloud-container',
     data: 'twitterWCData.json'
   });
+
+  SaveButton();
 
 </script>
 
