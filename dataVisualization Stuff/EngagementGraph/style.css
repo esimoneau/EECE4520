@@ -17,3 +17,15 @@ svg text{
   stroke: steelblue;
   stroke-width: 2px;
 }
+
+.axisBlue line {
+  stroke: steelblue;
+}
+
+.axisBlue path {
+  stroke: steelblue;
+}
+
+.axisBlue text {
+  fill: steelblue;
+}

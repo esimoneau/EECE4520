@@ -25,3 +25,15 @@ path.domain {
 .tick text {
   fill: white;
 }
+
+.axisBlue line {
+  stroke: steelblue;
+}
+
+.axisBlue path {
+  stroke: steelblue;
+}
+
+.axisBlue text {
+  fill: steelblue;
+}
