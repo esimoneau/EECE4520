@@ -1,6 +1,7 @@
 from datetime import date, datetime
 import praw
 import json
+from getSubredditFreq import getSubredditFreq
 
 reddit = praw.Reddit(user_agent = 'userAgent', client_id = 'Wtyt6ZzLdbI6NA', client_secret = '3BxHtc7XdjL28i-xRS_NQPMV_P4')
 
@@ -15,7 +16,7 @@ class SearchParam(object):
         self.keyword = ''
 
 def addParams(search):
-    with open('..\json\search.json') as jsonFile:
+    with open('../json/search.json') as jsonFile:
         data = json.load(jsonFile)
         for i in data['searchParams']:
             search.startDate = search.startDate.replace(year=i['startYear'], month=i['startMonth'], day=i['startDay'])
@@ -47,5 +48,7 @@ addParams(search)
 
 getSubmissions(search.keyword, search.startDate, search.endDate)
 
-with open('..\json\redditData.json', 'w') as outfile:
+with open('../json/redditData.json', 'w') as outfile:
     json.dump(subData, outfile)
+
+getSubredditFreq()
