@@ -5,8 +5,8 @@ var h;
 function LineGraph(options) {
   // set the dimensions and margins of the graph
   var margin = {top: 20, right: 20, bottom: 30, left: 50},
-      width = 960 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+      width = 600 - margin.left - margin.right,
+      height = 400 - margin.top - margin.bottom;
 
   w = width;
   h = height;
@@ -84,9 +84,9 @@ function SaveButton(options) {
   d3.select('#saveButton').on('click', function(){
     var svgString = getSVGString(svg.node());
     console.log(svgString);
-    svgString2Image( svgString, 2*w, 2*h, 'png', save ); // passes Blob and filesize String to the callback
+    svgString2Image( svgString, 2*w, 2*h, 'jpeg', save ); // passes Blob and filesize String to the callback
     function save( dataBlob, filesize ){
-      saveAs( dataBlob, 'D3 vis exported to PNG.png' ); // FileSaver.js function
+      saveAs( dataBlob, 'D3 vis exported to JPEG.jpeg' ); // FileSaver.js function
     }
   });
 

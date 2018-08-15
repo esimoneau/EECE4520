@@ -55,9 +55,9 @@ function SaveButton(options) {
   d3.select('#saveButton').on('click', function(){
     var svgString = getSVGString(svg.node());
     console.log(svgString);
-    svgString2Image( svgString, 2*w, 2*h, 'png', save ); // passes Blob and filesize String to the callback
+    svgString2Image( svgString, 2*w, 2*h, 'jpeg', save ); // passes Blob and filesize String to the callback
     function save( dataBlob, filesize ){
-      saveAs( dataBlob, 'D3 vis exported to PNG.png' ); // FileSaver.js function
+      saveAs( dataBlob, 'D3 vis exported to JPEG.jpeg' ); // FileSaver.js function
     }
   });
 
