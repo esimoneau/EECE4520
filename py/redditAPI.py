@@ -6,6 +6,7 @@ from datetime import date, datetime
 import praw
 import json
 from APICall import APICall
+from getSubredditFreq import getSubredditFreq
 
 class RedditAPI(APICall):
 	
@@ -48,6 +49,7 @@ class RedditAPI(APICall):
 	def parse_results(self):
 		with open('../json/redditData.json', 'w') as outfile:
 			json.dump(self.subData, outfile, indent=4)
+		getSubredditFreq()
 
 '''
 search = SearchParam()
